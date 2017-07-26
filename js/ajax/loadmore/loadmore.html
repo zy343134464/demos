@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>loadmore</title>
+  <style>
+    ul, 
+    li {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    #news > li {
+      width: 600px;
+      border: 1px solid #000;
+      border-radius: 5px;
+      font-size: 24px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 5px;
+      margin-top: 10px;
+    }
+    .btn{
+      width: 200px;
+      display: block;
+      margin: 0 auto;
+      margin-top: 20px;
+      font-size: 20px;
+      padding: 10px;
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <ul id="news">
+      <li>新闻1</li>
+      <li>新闻2</li>
+      <li>新闻3</li>
+      <li>新闻4</li>
+      <li>新闻5</li>
+  </ul>
+  <button id="more" class="btn">加载更多</button>
+  <script>
+    var btn = $("#more");
+    var newList = $("#news");
+    var dataLock = true; //数据锁初始打开
+    btn.addEventListener('click', function() {
+      if (!dataLock) {
+        return; //如果正在请求数据，那这次点击什么都不做
+      }
+      dataLock = false;
+      ajax({
+        url: '/loadMore', //接口地址
+        type: 'post', // 类型， post 或者 get,
+        data: {
+          index: newList.children.length,
+          needPage: 3
+        },
+        success: function (ret){
+          addNews(ret);
+          dataLock = true; //后端响应数据完,打开数据锁
+        },
+        error: function() {
+          console.log('出错了');
+        }
+      })
+    });
+    function $(str) {
+      return document.querySelector(str);
+    }
+    function addNews(arr) {
+      var frag = document.createDocumentFragment();
+      for (var i = 0; i < arr.length; i++) {
+        var list = document.createElement('li');
+        list.innerText = arr[i];
+        frag.appendChild(list);
+      }
+      newList.appendChild(frag);
+    }
+    function ajax(opts) {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200 || xhr .status === 304) {
+            var result = JSON.parse(xhr.responseText);
+            opts.success(result);
+          }else{
+            opts.error();
+          }
+        }
+      }
+      // /loadMore?index=5&needPage=3
+      var query = '';
+      for(var key in opts.data){
+        query += key + '=' + opts.data[key] + '&';
+      }
+      if (opts.type === 'post') {
+        xhr.open(opts.type,opts.url,true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send(query);
+      }else if(opts.type === 'get'){
+        xhr.open(opts.type, opts.url + '?' + query, true);
+        xhr.send();
+      }
+    }
+  </script>
+</body>
+</html>
