@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>lazyload</title>
+  <style>
+    ul,
+    li {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    #news > li {
+      width: 600px;
+      border: 1px solid #000080;
+      border-radius: 5px;
+      font-size: 1em;
+      margin: 0 auto;
+      text-align: center;
+      padding: 5px;
+      margin-top: 10px;
+    }
+    .btn {
+      width: 200px;
+      display: block;
+      margin: 0 auto;
+      margin-top: 20px;
+      font-size: 1.5em;
+      padding: 10px;
+      background: #0ff;
+      visibility: hidden;
+    }
+    h3 {
+      text-align: center;
+      font-size: 2em;
+    }
+  </style>
+</head>
+<body>
+    <ul id="news"></ul>
+    <button id="more" class="btn">加载更多</button>
+  
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+      var $news = $('#news');
+      var $btn = $('#more');
+      var $len = 3;
+      var lock = true;
+      var isOver = false;
+	  
+	  // 页面刚开始获取数据
+      getNews(); 
+      $(window).on('scroll',function(){
+        if(isVisible($btn) && lock && !isOver){
+          getNews();
+        }
+      })
+      function getNews(){
+        if(!lock){
+          return;
+        }
+        // 上一条请求未到来前,滚动滚动条不会发请求
+        lock = false;
+        $.ajax({
+          url: '/loadMore',
+          type: 'get',
+          data: {
+            len: $len,
+            index: $news.children('li').length
+          }
+        }).done(function(ret){
+          lock = true;
+          appendHtml(ret);
+          if(isVisible($btn) && lock && !isOver){
+            getNews();
+          }
+        }).fail(function(){
+          console.log('服务器异常');
+        })
+      }
+      function appendHtml(news){
+        if(news.length === 0){
+          // 加载至最后一条时,不再发请求
+          isOver = true;
+          $news.append("<h3>" + "没有更多了" + "</h3>");
+          return;
+        }
+        for(var i = 0; i < news.length; i++){
+          $news.append("<li>" + news[i] + "</li>");
+        }
+      }
+      function isVisible($node){
+        var $offset = $node.offset().top;
+        var $scrollTop = $(window).scrollTop();
+        var $height = $node.outerHeight();
+        var $windowHeight = $(window).height();
+        if($windowHeight + $scrollTop > $offset && $scrollTop < $offset + $height){
+          return true
+        }else{
+          return false
+        }
+      }
+    </script>
+</body>
+</html>
