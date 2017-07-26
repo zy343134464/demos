@@ -4,7 +4,7 @@
 - ### [原生js实现tab切换](https://zy343134464.github.io/demos/js/tab.html)
 - ### [原生js实现模态框](https://zy343134464.github.io/demos/js/modal.html)
 - ### 原生ajax查询朋友(本地测试)
-- ### 原生ajax查询朋友(本地测试)
+- ### 原生ajax表单验证(本地测试)
 - ### 原生ajax加载更多(本地测试)
 - ### Cross-domain 跨域获取数据的几种方式(jsonp、cors、降域、postMessage)
 
