@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>news</title>
+</head>
+<body>
+  <div class="container">
+    <ul class="news">
+      <li>第11日前瞻：中国冲击4金 博尔特再战200米羽球</li>
+      <li>最“出柜”奥运？同性之爱闪耀里约</li>
+      <li>中英上演奥运金牌大战</li>
+    </ul>
+    <button class="change">换一组</button>
+  </div>
+  <script>
+  $('.change').addEventListener('click', function(){ //给元素绑定事件
+    var script = document.createElement('script');  //点击事件后，创造一个script元素
+    script.src = 'http://b.xiaoming.com:8080/getNews?callback=appendHtml'; 
+        /*设置script元素的src属性，？前面的是协议，域名，接口。
+          ？后面是用户传递的一个callback参数
+        */
+    document.head.appendChild(script);   //把script元素添加到页面上
+  })
+  function appendHtml(news){      // 声明包裹数据的函数
+    var html = '';
+    for( var i=0; i<news.length; i++){
+      html += '<li>' + news[i] + '</li>';
+    }
+    console.log(html);
+    $('.news').innerHTML = html;
+  }
+  function $(id){
+    return document.querySelector(id);
+  }
+</script>
+  </script>
+</body>
+</html>
