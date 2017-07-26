@@ -1,0 +1,292 @@
+/* 设置默认样式 */
+body,ul,li,h1,h2,h4{
+  margin: 0;
+  padding: 0;
+  font-family: arial;
+}
+ul {
+  list-style: none;
+}
+/* 设置居中布局 */
+.layout {
+  width: 1140px;
+  margin: 0 auto;
+  text-align: center;
+}
+/* 清除浮动 */
+.clearfix:after{
+  content: '';
+  display: block;
+  clear: both;
+}
+/* 头部区域样式 */
+header > .nav {
+  width: 100%;
+  height: 70px;
+  background-color: #040b10;
+  opacity: 0.5;
+  position: fixed;
+  z-index: 100;
+}
+header > .nav > .navbar {
+  width: 1140px;
+  margin: 0 auto;
+}
+header > .nav > .navbar > .logo {
+  float: left;
+  font-size: 28px;
+  color: #c5c4bf;
+  line-height: 70px;
+  padding-left: 30px;
+  font-family: "Kaushan Script", "Helvetica Neue", Helvetica, Arial, cursive;
+}
+header > .nav > .navbar > ul {
+  float: right;
+}
+header > .nav > .navbar > ul > li {
+  float: right;
+}
+header > .nav > .navbar > ul > li > a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  line-height: 70px;
+  font-size: 16px;
+  padding: 0 15px;
+  font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+header > .nav > .navbar > ul > li > a:hover {
+  transition: all 1s;
+  background-color: #a29797;
+}
+
+/* 主要区域样式 */
+ .serves, .port, .bout, .team {
+  padding-top: 150px;
+  padding-bottom: 150px;
+}
+.serves > h1, .port > h1, .bout > h1, .team > h1 {
+  font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 40px;
+}
+.serves > p, .port > p, .bout > p, .team > p {
+  font-style: italic;
+  font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  color: #777;
+  margin-bottom: 75px;
+}
+/*.serves > ul > li {
+  float: left;
+  width: 350px;
+  margin: 0 15px;
+}
+.serves > ul > li > img {
+  width: 80px;
+  height: 80px;
+  background-color: #fed136;
+  padding: 10px;
+  border-radius: 50%;
+}
+.serves > ul > li > p {
+  font-size: 16px;
+  font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #777;
+  margin-bottom: 75px;
+} */
+
+.port, .team {
+  background-color: #f7f7f7;
+}
+.port > ul > li {
+  float: left;
+  width: 350px;
+  margin: 0 15px;
+}
+.port > ul > li > .img-1 {
+  height: 300px;
+  background: url(https://swsdl.vivo.com.cn/vivoshop/commodity/66/4366_1499928404613hd_530x530.png);
+  background-size: 100% 100%;
+}
+.port > ul > li > .img-2 {
+  height: 300px;
+  background: url(https://swsdl.vivo.com.cn/vivoshop/commodity/58/4358_1499309360512hd_530x530.png);
+  background-size: 100% 100%;
+}
+.port > ul > li > .img-3 {
+  height: 300px;
+  background: url(https://swsdl.vivo.com.cn/vivoshop/commodity/80/4180_1496689544465hd_530x530.png);
+  background-size: 100% 100%;
+}
+.port > ul > li > .img-4 {
+  height: 300px;
+  background: url(https://swsdl.vivo.com.cn/vivoshop/commodity/16/4116_1492998436609hd_530x530.png);
+  background-size: 100% 100%;
+}
+.port > ul > li > .img-5 {
+  height: 300px;
+  background: url(https://swsdl.vivo.com.cn/vivoshop/commodity/26/4326_1496407359120hd_530x530.png);
+  background-size: 100% 100%;
+}
+.port > ul > li > .img-6 {
+  height: 300px;
+  background: url(https://swsdl.vivo.com.cn/vivoshop/commodity/32/1932_1496689667345hd_530x530.png);
+  background-size: 100% 100%;
+}
+.port > ul > li > p {
+  font-size: 16px;
+  font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #777;
+  margin-bottom: 75px;
+}
+.port > ul > li > div:hover {
+  opacity: 0.65;
+  cursor: pointer;
+}
+.bout > ul > li {
+  position: relative;
+  padding-bottom: 125px;
+}
+.bout > ul > li > .time {
+  width: 550px;
+  text-align: right;
+  position: absolute;
+  top: 25px;
+  left: -75px;
+}
+.bout > ul > li:nth-child(even) > .time {
+  width: 550px;
+  text-align: left;
+  position: absolute;
+  top: 25px;
+  left: 665px;
+}
+.bout > ul > li > img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 7px solid #f1f1f1;
+}
+.bout > ul > li:after {
+    content: '';
+    position: absolute;
+    border: 2px solid #f1f1f1;
+    height: 100%;
+    top: 0;
+    left: 50%;
+    margin-left: -1px;
+    z-index: -2;
+}
+.bout > ul > li:last-child {
+  padding-bottom: 0;
+  margin-bottom: 75px;
+}
+.time-cir {
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 7px solid #f1f1f1;
+  background-color: #fed136;
+}
+.time-cir > h4 {
+  color: #fff;
+  padding-top: 40px;
+  font-size: 18px;
+  line-height: 26px;
+}
+.team > ul {
+  margin: 50px 0;
+}
+.team > ul > li {
+  display: inline-block;
+  width: 300px;
+}
+.team > ul > li > img:first-child {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+}
+.team > ul > li > h2 {
+  margin-top: 25px;
+}
+.team > ul > li > p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.team > ul > li > .black-circle,
+footer > .tail > div > img {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  padding: 10px;
+  background-color: #222;
+  border-radius: 50%;
+}
+/* 底部区域样式 */
+footer > .logo {
+  padding: 30px;
+  text-align: center;
+}
+footer > .logo > img {
+  width: 200px; 
+}
+footer > .contact {
+  padding: 100px 0;
+  background: url(http://book.jirengu.com/jirengu-inc/jrg-tehui/homework/%E8%8B%A5%E6%84%9A/16/img/map-image.png);
+  background-color: #222;
+}
+footer > .contact > .layout > h1 {
+  color: #fff;
+  padding: 10px 0;
+}
+footer > .contact > .layout > p {
+  color: #fff;
+}
+footer > .contact > .layout > form > .you-1 {
+  box-sizing: border-box;
+  float: left;
+  width: 50%;
+  padding: 0 15px;
+} 
+footer > .contact > .layout > form > .you-1 > input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 20px;
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+  border-radius: 10px;
+} 
+footer > .contact > .layout > form > .you-2 {
+  box-sizing: border-box;
+  float: left;
+  width: 50%;
+  padding: 0 15px;
+} 
+footer > .contact > .layout > form > .you-2 > textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 25px 0 2px 25px;
+  font-size: 1.2rem;
+  font-family: arial;
+  border-radius: 10px;
+}
+footer > .contact > .layout > button {
+  width: 200px;
+  height: 80px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: #fec503;
+  border-radius: 5px;
+  color: #fff;
+  border: none;
+  margin-top: 20px;
+}
+footer > .tail {
+  padding: 20px;
+}
+footer > .tail > div {
+  display: inline-block;
+  margin: 0 60px;
+  vertical-align: middle;
+}
