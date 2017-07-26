@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>waterfull</title>
+  <style>
+    ul,li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .ct {
+      position: relative;
+      max-width: 1140px;
+      margin: 0 auto;
+      background: rgba(0,191,255, 0.5);
+    }
+    .ct li {
+      position: absolute;
+      z-index: 0;
+      top: 0;
+      left: 0;
+      width: 150px;
+      margin: 10px;
+      transition: all 1s;
+    }
+    .ct img {
+      width: 100%;
+      border: 1px solid #aaa;
+      box-shadow: 5px 5px 3px #aaa;
+    }
+  </style>
+</head>
+<body>
+  <ul class="ct">
+    <li class="item">
+      <img data-src="https://g-search1.alicdn.com/img/bao/uploaded/i4/TB1slFPSXXXXXcnaXXXXXXXXXXX.jpg_180x180.jpg_.webp" src="" alt="">
+    </li>
+    <li class="item">
+      <img data-src="https://g-search3.alicdn.com/img/bao/uploaded/i4/TB1QIwIOXXXXXXvaXXXXXXXXXXX.jpg_180x180.jpg_.webp" src="" alt="">
+    </li>
+    <li class="item">
+      <img data-src="https://g-search2.alicdn.com/img/bao/uploaded/i4/TB1dJF7NVXXXXamapXXqOgm9pXX_042251.jpg_180x180.jpg_.webp" src="" alt="">
+    </li>
+    <li class="item">
+      <img data-src="https://g-search3.alicdn.com/img/bao/uploaded/i4/TB1qgGONVXXXXXQXFXXXXXXXXXX.jpg_180x180.jpg_.webp" src="" alt="">
+    </li>
+    <li class="item">
+      <img data-src="https://g-search3.alicdn.com/img/bao/uploaded/i4/TB1HuwtHXXXXXcjXpXXXXXXXXXX.jpg_180x180.jpg_.webp" src="" alt="">
+    </li>
+    <li class="item">
+      <img data-src="https://g-search1.alicdn.com/img/bao/uploaded/i4/TB1l6c.MXXXXXbsXXXXXXXXXXXX.jpg_180x180.jpg_.webp" src="" alt="">
+    </li>
+    <li class="item">
+      <img data-src="https://g-search3.alicdn.com/img/bao/uploaded/i4/TB1ujiGGXXXXXXSXVXXXXXXXXXX.jpg_180x180.jpg_.webp" src="" alt="">
+    </li>
+    <li class="item">
+      <img data-src="https://g-search3.alicdn.com/img/bao/uploaded/i4/T1S4IcFHtXXXXXXXXX.jpg_180x180.jpg_.webp" src="" alt="">
+    </li>
+    <li class="item">
+      <img data-src="https://g-search1.alicdn.com/img/bao/uploaded/i4/TB1slFPSXXXXXcnaXXXXXXXXXXX.jpg_180x180.jpg_.webp" src="" alt="">
+    </li>
+    <li class="item">
+      <img data-src="https://g-search3.alicdn.com/img/bao/uploaded/i4/TB1QIwIOXXXXXXvaXXXXXXXXXXX.jpg_180x180.jpg_.webp" src="" alt="">
+    </li>
+    <li class="item">
+      <img data-src="https://g-search2.alicdn.com/img/bao/uploaded/i4/TB1dJF7NVXXXXamapXXqOgm9pXX_042251.jpg_180x180.jpg_.webp" src="" alt="">
+    </li>
+    <li class="item">
+      <img data-src="https://g-search3.alicdn.com/img/bao/uploaded/i4/TB1qgGONVXXXXXQXFXXXXXXXXXX.jpg_180x180.jpg_.webp" src="" alt="">
+    </li>
+    <li class="item">
+      <img data-src="https://g-search3.alicdn.com/img/bao/uploaded/i4/TB1HuwtHXXXXXcjXpXXXXXXXXXX.jpg_180x180.jpg_.webp" src="" alt="">
+    </li>
+    <li class="item">
+      <img data-src="https://g-search1.alicdn.com/img/bao/uploaded/i4/TB1l6c.MXXXXXbsXXXXXXXXXXXX.jpg_180x180.jpg_.webp" src="" alt="">
+    </li>
+    <li class="item">
+      <img data-src="https://g-search3.alicdn.com/img/bao/uploaded/i4/TB1ujiGGXXXXXXSXVXXXXXXXXXX.jpg_180x180.jpg_.webp" src="" alt="">
+    </li>
+    <li class="item">
+      <img data-src="https://g-search3.alicdn.com/img/bao/uploaded/i4/T1S4IcFHtXXXXXXXXX.jpg_180x180.jpg_.webp" src="" alt="">
+    </li>
+  </ul>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+    var water = (function(){
+      function Waterfull($ct){
+        this.$ct = $ct;
+        this.init();
+        this.water();
+      }
+      
+      Waterfull.prototype.init = function(){
+        var $ct = this.$ct;
+        var $item = this.$ct.find('li');
+        var itemArr = [];
+        var itemLen = parseInt($ct.outerWidth(true)/$item.outerWidth(true));
+        
+        for(var i = 0; i < itemLen; i++){
+          itemArr[i] = 0;
+        }
+        
+        $item.each(function(){
+          var minValue = Math.min.apply(null,itemArr);
+          var minIndex = itemArr.indexOf(minValue);
+          var maxValue = Math.max.apply(null, itemArr)
+          
+          $(this).css({
+            top: itemArr[minIndex],
+            left: $(this).outerWidth(true)*minIndex
+          })
+          
+          itemArr[minIndex] += $(this).outerHeight(true);
+          
+          //父容器高度塌陷，需要设置父容器的高度
+          $ct.css({
+              height: maxValue
+          })
+        })
+      }
+      
+      Waterfull.prototype.water = function(){
+        var _this = this;
+        $(window).on('resize',function(){
+          _this.init();
+        })
+      }
+      
+      return {
+        init: function($node){
+          $node.each(function(){
+            new Waterfull($(this))
+          })
+        }
+      }
+      
+    })()
+  
+    water.init($('.ct'));
+  </script>
+</body>
+</html>
