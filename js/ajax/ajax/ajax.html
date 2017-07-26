@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ajax</title>
+</head>
+<body>
+  <div class="query-area">
+    <input type="text" name="username" value="hunger" placeholder="hunger, ruoyu, anyone">
+    <button>查询朋友</button>   
+  </div>
+  <div class="detail-area">
+    <ul>     
+    </ul>
+  </div>
+  <script>
+    var btn = document.querySelector('.query-area button')
+    var input = document.querySelector('.query-area input')
+    
+    btn.addEventListener('click', function(){
+       // 创建XMLHttpRequest对象
+       var xhr = new XMLHttpRequest()
+       // 增加onreadystatechange事件,以监听所属状态
+       xhr.onreadystatechange = function(){
+         // readyState等于4,加载完成并且状态码200加载成功或者状态码304未修改
+         if(xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 304)){
+          //将得到的JSON字符串转为JS能处理的数据
+          var friends = JSON.parse(xhr.responseText)
+          console.log(friends)
+         }
+       }
+      // 设置get请求,请求路径及异步
+      xhr.open('get', '/getFriends?username=' + input.value, true)
+      // 发送请求
+      xhr.send()
+    })
+  </script>
+  
+</body>
+</html>
