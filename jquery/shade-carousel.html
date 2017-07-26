@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>shade-carousel</title>
+  <style>
+    .clearfix:after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+    ul,
+    li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .carousel {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin:0 auto;
+      overflow: hidden;
+    }
+    .carousel > .img-ct {
+      position: absolute;
+      width: 1200px;
+    }
+    .carousel > .img-ct > li {
+      float: left;
+      width: 300px;
+      height: 300px;
+    }
+    .carousel > .img-ct > li > a > img {
+      width: 100%;
+      height: 100%;
+    }
+    .carousel > .btn {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      line-height: 40px;
+      font-size: 1.5em;
+      color: #fff;
+      background-color: #666;
+      border-radius: 50%;
+      opacity: 0.6;
+      cursor: pointer;
+    }
+    .carousel > .btn-pre {
+      left: 10px;
+      top: 50%;
+      margin-top: -20px;
+    }
+    .carousel > .btn-next {
+      right: 10px;
+      top: 50%;
+      margin-top: -20px;
+    }
+    .carousel > .bullet {
+      position: absolute;
+      bottom: 50px;
+      width: 100%;
+      text-align: center;
+    }
+    .carousel > .bullet > li {
+      display:inline-block;
+      width: 30px;
+      height: 8px;
+      border: 1px solid #0ff;
+      border-radius: 50%;
+      background-color: #0ff;
+      margin: 0 2px;
+    }
+    .carousel > .bullet > .active {
+      background-color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="carousel">
+    <ul class="img-ct clearfix">
+      <li data-index="0"><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg" alt="图片0"></a></li>
+      <li data-index="1"><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/2.jpg" alt="图片1"></a></li>
+      <li data-index="2"><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/3.jpg" alt="图片2"></a></li>
+      <li data-index="3"><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/4.jpg" alt="图片3"></a></li>
+    </ul>
+    <div class="btn btn-pre">&lt;</div>
+    <div class="btn btn-next">&gt;</div>
+    <ul class="bullet">
+      <li class="active"></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+    var $imgCt = $('.img-ct');
+    var $btnPre = $('.btn-pre');
+    var $btnNext = $('.btn-next');
+    var $bullet = $('.bullet');
+    var $curIndex = 0;
+    var $imgLock = true;
+    var clock;
+    var $last = $imgCt.children('li').last().clone();
+    var $first = $imgCt.children('li').first().clone();
+    // 容器宽度自适应
+    var $imgWidth = $imgCt.children('li').first().width();
+    var $imgLen = $imgCt.children('li').length;
+    // 在第一张前放最后一张图的克隆
+    $imgCt.prepend($last);
+    // 在最后一张前放第一张图的克隆
+    $imgCt.append($first);
+    // 显示第一张图片
+    $imgCt.css({
+      width: $imgWidth * ($imgLen + 2),
+      left: -$imgWidth
+    })
+    $btnPre.on('click',function(){
+      if($imgLock === false) return;
+      $imgLock = false;
+      pre(1);
+    })
+    $btnNext.on('click',function(){
+      if($imgLock === false) return;
+      $imgLock = false;
+      next(1);
+    })
+    $bullet.on('click','li',function(){
+      $bulletIndex = $(this).index();
+      next($bulletIndex - $curIndex)
+    })
+    timeClock();
+    $('.carousel').on('mouseenter',function(){
+      clearInterval(clock);
+    })
+    $('.carousel').on('mouseleave',function(){
+      timeClock();
+    })
+    function next(idx){
+      $imgCt.fadeOut(500,function(){
+          $imgCt.css({
+            left: "-="+idx*$imgWidth
+          })
+      })
+      $imgCt.fadeIn(500,function(){
+        $curIndex += idx;
+        if($curIndex >= $imgLen){
+          $imgCt.css({
+            left: -$imgWidth
+          })
+          $curIndex = 0;
+        }
+        $imgLock = true;
+        setBullet();
+      })
+    }
+    function pre(idx){
+      $imgCt.fadeOut(500,function(){
+          $imgCt.css({
+            left: "+="+idx*$imgWidth
+          })
+      })
+      $imgCt.fadeIn(500,function(){
+        $curIndex -= idx;
+        if($curIndex < 0){
+          $imgCt.css({
+            left: -$imgWidth*$imgLen
+          })
+          $curIndex = $imgLen-1;
+        }
+        $imgLock = true;
+        setBullet();
+      })
+    }
+    function setBullet(){
+      $bullet.children('li').removeClass('active');                             
+      $bullet.children('li').eq($curIndex).addClass('active');
+    }
+    function timeClock(){
+      clock = setInterval(function(){
+        next(1);
+      },2000)
+    }
+  </script>
+</body>
+</html>
