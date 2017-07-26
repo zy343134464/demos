@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>weather</title>
+  <style>
+    .date,
+    .city,
+    .pm {
+      width: 150px;
+      background-color: #00FA9A;
+      font-size: 1.5em;
+      margin: 5px;
+      padding: 5px;
+    }
+    .city {
+      background-color: #0ff;
+    }
+    .pm {
+      background-color: #ccc;
+    }
+    .msg0 {
+      width: 250px;
+      background-color: #9ff;
+      font-size: 1.2em;
+      margin: 5px;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="date">日期:<br/><span></span></div>
+  <div class="city">城市:<br/><span></span></div>
+  <div class="pm">pm2.5:<br/><span></span></div>
+  <div class="msg">
+    <ul class="msg0">
+      <li class="des"></li>
+      <li class="tipt"></li>
+      <li class="title"></li>
+      <li class="zs"></li>
+    </ul>
+  </div>
+  
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+    $.ajax({
+      type: 'get',
+      url: 'https://jirenguapi.applinzi.com/weather.php',
+      cache:false,
+    }).done(function(ret){
+      // 将字符串转为对象
+      var weather = JSON.parse(ret);
+      appendHtml(weather);
+    })
+    function appendHtml(opt){
+      // 获取当地的日期
+      var $date = opt.date;
+      console.log($date);
+      $('.date span').text($date);
+      // 获取当地的城市
+      var $city =  opt.results[0].currentCity;
+      console.log($city);
+      $('.city span').text($city);
+      // 获取当地的pm25
+      var $pm = opt.results[0].pm25;
+      console.log($pm);
+      $('.pm span').text($pm);
+      // 获取当地温馨提示对象
+      var $msg0 = opt.results[0].index[0];
+      console.log($msg0);
+      // 获取当地温馨提示的描述
+      var $des = $msg0.des;
+      $('.msg0 .des').text($des);
+      // 获取当地温馨提示的穿衣指数
+      var $tipt = $msg0.tipt;
+      $('.msg0 .tipt').text($tipt);
+      // 获取当地温馨提示的穿衣
+      var $title = $msg0.title;
+      $('.msg0 .title').text($title);
+      // 获取当地温馨提示的热
+      var $zs = $msg0.zs;
+      $('.msg0 .zs').text($zs);
+    }
+  </script>
+</body>
+</html>
